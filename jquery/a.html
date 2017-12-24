@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>demo-jquery</title>
+	<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+	<style type="text/css">
+		div{
+			float:left;
+			margin-left: 5px;
+			width:32%;
+		}
+	</style>
+</head>
+<body>
+	<div id="visible_control" style="width:100%">
+		<div>
+			是否显示加法：
+			<select id="add_visible" related_div="add" onchange="visible_control.visibleChange(this)">
+				<option value='1' selected>是</option>
+				<option value='0'>否</option>
+			</select>
+			<input type="button" value="add 1" onclick="add.add()"/>
+		</div>
+		<div>
+			是否显示平方：
+			<select id="square_visible" related_div="square" onchange="visible_control.visibleChange(this)">
+				<option value='1' selected>是</option>
+				<option value='0'>否</option>
+			</select>
+			<input type="button" value="square" onclick="square.square()"/>
+		</div>
+		<div>
+			是否显示列表：
+			<select id="list_visible" related_div="list" onchange="visible_control.visibleChange(this)">
+				<option value='1' selected>是</option>
+				<option value='0'>否</option>
+			</select>
+			<input type="button" value="add todo" onclick="listComponent.addTodo()"/>
+		</div>
+	</div>
+	<div style="clear:both"></div>
+	<div style="width:100%">
+		<div>
+			&nbsp;
+			<div id="add" style="width:100%">
+				<p>
+					加法：
+					<span id="add_value"></span>
+				</p>
+			</div>
+		</div>
+		<div>
+			&nbsp;
+			<div id="square" style="width:100%">
+				<p>
+					平方：
+					<span id="square_value"></span>
+				</p>
+			</div>
+		</div>
+		<div>
+			&nbsp;
+			<div id="list" style="width:100%">
+				<p>列表：</p>
+				<ul id="list_ul"></ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+	var visible_control = {
+		visibleChange: function(obj){
+			if($(obj).val() == 1) {
+				$('#' + $(obj).attr('related_div')).show();
+			} else {
+				$('#' + $(obj).attr('related_div')).hide();
+			}
+		},
+	};
+
+	var add = {
+		init: function() {
+			$('#add_visible').val(1);
+			$('#add').show();
+			$('#add_value').html(0);
+		},
+
+		add: function() {
+			var currVal = parseInt($('#add_value').html())
+			$('#add_value').html(++currVal);
+		},
+	};
+
+	var square = {
+		init: function() {
+			$('#square_visible').val(1);
+			$('#square').show();
+			$('#square_value').html(2);
+		},
+
+		square: function() {
+			var currVal = Math.pow(parseInt($('#square_value').html()), 2);
+			$('#square_value').html(currVal);
+		},
+	};
+
+	var listComponent = {
+		init: function() {
+			$('#list_visible').val(1);
+			$('#list').show();
+			$('#list_ul').html('');
+		},
+
+		addTodo: function() {
+			var count = ++$('#list_ul').find('li').length;
+			$('#list_ul').append('<li>todo' + count + '</li>');
+		},
+	};
+
+	$(function(){
+		add.init();
+		square.init();
+		listComponent.init();
+	});
+</script> 
