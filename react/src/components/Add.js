@@ -1,7 +1,9 @@
-import React from 'react';
+import React    from 'react';
 
 import Selector from './Selector'
-import styles from '../style/style.less'
+import Result   from './Result' 
+
+import styles   from '../style/style.less'
 
 export default class Add extends React.Component {
 
@@ -11,10 +13,7 @@ export default class Add extends React.Component {
     	visible: 1,
     	currVal: 0,
     }
-    //this.handleVisible = this.handleVisible.bind(this)
-    this.handleAdd = this.handleAdd.bind(this)
   }
-
 
   handleVisible() {
     this.setState({
@@ -30,17 +29,11 @@ export default class Add extends React.Component {
 
   render() {
     return (
-      <div className="line">
+      <div className="module">
       	<Selector name={this.props.name} visible={this.state.visible} changeVisible={() => this.handleVisible()} />
-        <button className="horizontal" onClick={() => this.handleAdd()}>add 1</button>
-      	{
-      		this.state.visible == 1 && 
-      		(
-      			<p>
-      				{this.props.name}：{this.state.currVal}
-  				  </p>
-          )
-      	}
+        <button className="btn-horizontal" onClick={() => this.handleAdd()}>add 1</button>
+        <div className="clear"></div>
+        <Result visible={this.state.visible} name={this.props.name} currVal={this.state.currVal} type="add" />
       </div>
     );
   }
