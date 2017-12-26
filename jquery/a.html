@@ -35,7 +35,8 @@
 				<option value='1' selected>是</option>
 				<option value='0'>否</option>
 			</select>
-			<input type="button" value="add todo" onclick="listComponent.addTodo()"/>
+			<input type="button" id="add_todo" value="add todo" onclick="listComponent.addTodo()"/>
+			<input type="button" id="remove_todo" value="remove todo" onclick="listComponent.removeTodo()" style="display:none"/>
 		</div>
 	</div>
 	<div style="clear:both"></div>
@@ -115,7 +116,35 @@
 		addTodo: function() {
 			var count = ++$('#list_ul').find('li').length;
 			$('#list_ul').append('<li>todo' + count + '</li>');
+			if (count > 0) {
+				$('#remove_todo').show();
+			} else {
+				$('#remove_todo').hide();
+			}
+			if (count >= 5) {
+				$('#add_todo').hide();
+			}
 		},
+
+		removeTodo: function() {
+			var list = $('#list_ul').find('li');
+			var lastIndex = list.length - 1;
+			$('#list_ul').html('');
+			list.each(function(index){
+				if (index != lastIndex) {
+					$("#list_ul").append('<li>' + $(this).html() + '</li>');
+				}
+			})
+			var count = $('#list_ul').find('li').length;
+			if (count < 5) {
+				$('#add_todo').show();
+			}
+			if (count > 0) {
+				$('#remove_todo').show();
+			} else {
+				$('#remove_todo').hide();
+			}
+		}
 	};
 
 	$(function(){

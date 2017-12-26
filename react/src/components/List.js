@@ -28,11 +28,25 @@ export default class List extends React.Component {
     })
   }
 
+  handleRemoveTodo() {
+  	this.state.currVal.pop()
+    this.setState({
+      currVal: [...this.state.currVal]
+    })
+  }
+
   render() {
     return (
       <div className="module">
       	<Selector name={this.props.name} visible={this.state.visible} changeVisible={() => this.handleVisible()} />
-        <button className="btn-horizontal" onClick={() => this.handleAddTodo()}>add todo</button>
+      	{
+      		this.state.currVal.length <= 5
+        		&& <button className="btn-horizontal" onClick={() => this.handleAddTodo()}>add todo</button>
+      	}
+      	{
+        	this.state.currVal.length > 0
+        		&& <button className="btn-horizontal" onClick={() => this.handleRemoveTodo()}>remove todo</button>
+      	}
         <div className="clear"></div>
         <Result visible={this.state.visible} name={this.props.name} currVal={this.state.currVal} type="list" />
       </div>
